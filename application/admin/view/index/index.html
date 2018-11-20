@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>hzzcms 后台首页</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <link rel="stylesheet" href="/public/lib/layui/css/layui.css">
+    <style type="text/css">
+        p {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body class="layui-row">
+
+
+
+<div class="layui-layout layui-layout-admin">
+
+    {include file="public/leftMenu"}
+
+
+    <div class="layui-body">
+        <div class="layui-col-md12" style="padding: 10px 10px;">
+            <fieldset class="layui-elem-field layui-field-title">
+
+                <div class="layui-field-box" style="padding: 20px 10px 0px;">
+                    <p style="margin-bottom: 0px;">
+                        <button class="layui-btn layui-btn-sm layui-btn-primary" id="expand">展开</button>
+                        <button class="layui-btn layui-btn-sm layui-btn-primary" id="collapse">收起</button>
+                        <button class="layui-btn layui-btn-sm layui-btn-primary" id="addLeder">添加顶级栏目</button>
+                    </p>
+                </div>
+            </fieldset>
+            <div id="demo"></div>
+        </div>
+    </div>
+
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © layui.com - 底部固定区域
+    </div>
+</div>
+</body>
+<script src="https://cdn.staticfile.org/jquery/1.12.4/jquery.min.js"></script>
+<script src="/public/lib/layui/layui.js"></script>
+<script type="text/javascript">
+
+
+    var layout = [
+        {name: '菜单名称', treeNodes: true, headerClass: 'value_col', colClass: 'value_col', style: ''},
+        {
+            name: '操作',
+            headerClass: 'value_col',
+            colClass: 'value_col',
+            style: 'width: 40%',
+            render: function (row) {
+                return "<a class='layui-btn layui-btn-danger layui-btn-sm' onclick='begin(" + row +
+                    ")'><i class='layui-icon'>&#xe653;</i> 启用</a>" +
+                    "<a class='layui-btn layui-btn-danger layui-btn-sm' onclick='edit(" + row +
+                    ")'><i class='layui-icon'>&#xe642;</i> 编辑</a>" +
+                    "<a class='layui-btn layui-btn-danger layui-btn-sm' onclick='add(" + row +
+                    ")'><i class='layui-icon'>&#xe654;</i> 添加</a>" +
+                    "<a class='layui-btn layui-btn-danger layui-btn-sm' onclick='del(" + row + ")'><i class='layui-icon'>&#xe640;</i> 删除</a>"; //列渲染
+            }
+        },
+    ];
+
+    layui.use(['form', 'treetable', 'layer'], function () {
+        var layer = layui.layer, form = layui.form, $ = layui.jquery;
+
+        var tree = layui.treetable({
+            elem: '#demo', //传入元素选择器
+            spreadable: false, //设置是否全展开，默认不展开
+            checkbox: false,
+            nodes: [{
+                "id": "1",
+                "name": "首页",
+                "checked": false,
+                "children": [{
+                    "id": "11",
+                    "name": "集团新闻",
+                },
+                    {
+                        "id": "12",
+                        "name": "集团板块",
+                    },
+                    {
+                        "id": "13",
+                        "name": "集团项目",
+                    }
+                ]
+            },
+                {
+                    "id": "2",
+                    "name": "关于我们",
+                    "checked": true,
+                    "children": [{
+                        "id": "21",
+                        "name": "集团简介",
+                        "children": [{
+                            "id": "211",
+                            "name": "集团介绍"
+                        }, {
+                            "id": "212",
+                            "name": "西亚斯大事记"
+                        }
+                        ]
+                    }, {
+                        "id": "22",
+                        "name": "董事长介绍",
+                    },
+                        {
+                            "id": "23",
+                            "name": "企业文化",
+                            "children": [{
+                                "id": "231",
+                                "name": "愿景"
+                            }, {
+                                "id": "222",
+                                "name": "使命"
+                            }, {
+                                "id": "232",
+                                "name": "战略"
+                            }
+                            ]
+                        }]
+                },
+
+            ],
+            layout: layout
+        });
+        form.render();
+
+        $('#collapse').on('click', function () {
+            tree.collapse();
+        });
+        //展开按钮
+
+        $('#expand').on('click', function () {
+            tree.expand();
+        });
+        //收起按钮
+        $('#addLeder').on('click', function () {
+            layer.open({
+                type: 2,
+                area: ['1000px', '450px'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: 'table.html?' + 'id=' + row.id,
+                success: function (layero, index) {
+
+                    layer.full(index);
+                }
+
+            });
+
+        });
+
+        //添加栏目
+    });
+
+    function begin(row) {
+
+        layer.msg(row.id + '的启用或者停用操作');
+    }
+
+    function edit(row) {
+        layer.open({
+            type: 2,
+            area: ['1000px', '450px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: 'table.html?' + 'id=' + row.id,
+            success: function (layero, index) {
+
+                layer.full(index);
+            }
+
+        });
+
+    }
+
+    function add(row) {
+        layer.msg(row.id + '的添加操作');
+    }
+
+    function del(row) {
+        layer.open({
+            type: 2,
+            area: ['700px', '450px'],
+            fixed: false, //不固定
+            maxmin: true,
+            content: 'from.html?' + 'id=' + row.id,
+
+        });
+    };
+
+
+</script>
+
+
+</html>

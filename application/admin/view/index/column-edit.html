@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>hzzcms 数据表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="/public/lib/layui/css/layui.css">
+    <style>
+        .layui-btn {
+            height: 24px;
+            line-height: 24px;
+
+        }
+    </style>
+
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+</head>
+<body>
+<div style="margin-bottom: 5px;">
+
+    <!-- 示例-970 -->
+    <ins class="adsbygoogle" style="display:inline-block;width:700px;height:700px"
+         data-ad-client="ca-pub-6111334333458862" data-ad-slot="3820120620"></ins>
+
+</div>
+
+
+<table class="layui-hide" id="LAY_table_user" lay-filter="useruv"></table>
+<script type="text/html" id="barDemo">
+
+    <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+</script>
+
+
+<script src="/public/lib/layui/layui.js"></script>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        //方法级渲染
+
+        // function shuxin() {
+        //     table.render({
+        //         elem: '#LAY_table_user'
+        //         , url: './table.json'
+        //         , cols: [[
+        //
+        //             , {field: 'id', title: 'ID', width: 80, sort: true, fixed: 'left'}
+        //             , {field: 'username', title: '用户名', width: 80}
+        //             , {field: 'sex', title: '性别', width: 80, sort: true}
+        //             , {field: 'city', title: '城市', width: 80}
+        //             , {field: 'sign', title: '签名', width: 177}
+        //             , {field: 'experience', title: '积分', width: 80, sort: true}
+        //             , {field: 'score', title: '评分', width: 80, sort: true}
+        //             , {field: 'classify', title: '职业', width: 80}
+        //             , {field: 'wealth', title: '财富', width: 135, sort: true}
+        //             , {field: 'right', title: '操作', width: 277, toolbar: "#barDemo"}
+        //         ]]
+        //         , id: 'testReload'
+        //         , page: true
+        //         , height: 600
+        //     });
+        // }
+
+        table.render({
+            elem: '#LAY_table_user'
+            , url: './table.json'
+            , cols: [[
+                , {field: 'id', title: ' I D', width:69, sort: true, fixed: 'left'}
+                , {field: 'username', title: '用户名'}
+                , {field: 'sex', title: '性别' }
+                , {field: 'city', title: '城市' }
+                , {field: 'sign', title: '签名'}
+                , {field: 'experience', title: '积分' }
+                , {field: 'score', title: '评分',}
+                , {field: 'classify', title: '职业' }
+                , {field: 'wealth', title: '财富'  }
+                , {field: 'right', title: '操作',width:300,  toolbar: "#barDemo"}
+            ]]
+            , id: 'testReload'
+            , page: true
+            , height: 600
+        });
+
+
+        var $ = layui.$, active = {
+            reload: function () {
+                var demoReload = $('#demoReload');
+
+                table.reload('testReload', {
+                    where: {
+                        keyword: demoReload.val()
+                    }
+                });
+            }
+        };
+
+
+        table.on('tool(useruv)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+                // layer.msg('ID：'+ data.id + ' 的查看操作');
+                console.log(1);
+                layer.open({
+                    type: 2,
+                    area: [$(window).width()-200+'px',$(window).height()-150+'px'],
+                    fixed: false, //不固定
+                    maxmin: true,
+                    content: 'from.html?' + 'id=' + data.id,
+
+                });
+            } else if (obj.event === 'del') {
+                layer.confirm('真的删除行么', function (index) {
+                    console.log(data);
+                    // $.ajax({
+                    //     url: "UVServlet",
+                    //     type: "POST",
+                    //     data: {"uvid": data.id, "memthodname": "deleteuv", "aid": data.aid},
+                    //     dataType: "json",
+                    //     success: function (data) {
+                    //
+                    //         if (data.state == 1) {
+                    //             obj.del();
+                    //             layer.close(index);
+                    //             layer.msg("删除成功", {icon: 6});
+                    //         } else {
+                    //             layer.msg("删除失败", {icon: 5});
+                    //         }
+                    //     }
+                    //
+                    // });
+
+                    obj.del();
+                    layer.close(index);
+                    layer.msg("删除成功", {icon: 6});
+
+                });
+            }
+        });
+
+
+        function EidtUv(data, value, index, obj) {
+            // $.ajax({
+            //     url: "UVServlet",
+            //     type: "POST",
+            //     data: {"uvid": data.id, "memthodname": "edituv", "aid": data.aid, "experience": value},
+            //     dataType: "json",
+            //     success: function (data) {
+            //         if (data.state == 1) {
+            //             layer.close(index);
+            //             //同步更新表格和缓存对应的值
+            //             obj.update({
+            //                 experience: value
+            //             });
+            //             layer.msg("修改成功", {icon: 6});
+            //         } else {
+            //             layer.msg("修改失败", {icon: 5});
+            //         }
+            //     }
+            // });
+            layer.close(index);
+            //同步更新表格和缓存对应的值
+            obj.update({
+                experience: value
+            });
+            layer.msg("修改成功", {icon: 6});
+        }
+
+
+        // $('.demoTable .layui-btn').on('click', function(){
+        //     var type = $(this).data('type');
+        //     active[type] ? active[type].call(this) : '';
+        // });
+        //监听表格复选框选择
+        // table.on('checkbox(useruv)', function(obj){
+        //     console.log(obj)
+        // });
+        //监听工具条
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="西亚斯集团-关键字">
+    <meta name="description" content="西亚斯集团-描述">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>西亚斯集团-标题</title>
+
+    <link href="/style/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" type="text/css" href="/style/boot/css/bootsnav.css">     <link rel="stylesheet" href="/style/css/main.css">
+    <link rel="stylesheet" href="/style/css/main_0_768.css">
+    <link rel="stylesheet" href="/style/css/main_768.css">
+
+    <link rel="stylesheet" href="/style/css/main_768_992.css">
+    <link rel="stylesheet" href="/style/css/main_992_1200.css">
+
+    <link rel="stylesheet" href="/style/css/main_992.css">
+    <link rel="stylesheet" href="/style/css/main_1200.css">
+
+    <link rel="stylesheet" href="/style/css/timeline.css" />
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+
+{include file="public/nav"}
+
+
+<div class="container-fluid jtjj-banner">
+    <div class="container jtjj-banner-title">
+        <h1 class="fb">集团简介</h1>
+    </div>
+
+</div>
+
+
+<div class="container-fluid jtjj-slide2 bg—ff">
+    <div class="container">
+        <div class="col-xs-12 col-md-6">
+            <img src="{$module.jtjs.img}" alt="">
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <h3 class="fb">{$module.jtjs.title}</h3>
+            <p>
+                {$module.jtjs.content}
+            </p>
+
+        </div>
+    </div>
+
+</div>
+
+<div class="container-fluid  ">
+    <div class="container">
+        <h1 class="first_title">
+            {$column.dsj.title}
+        </h1>
+    </div>
+</div>
+
+
+<div class="container-fluid  jtjj-slide3">
+    <div class="container ">
+
+
+        <section id="cd-timeline" class="cd-container">
+            {volist name="loop.dsj" id="dsj"}
+            <div class="cd-timeline-block">
+                <div class="cd-timeline-img {$dsj.other_class}">
+                    <img src="{$dsj.img}" alt="Picture">
+                </div>
+
+                <div class="cd-timeline-content">
+                    <h2>{$dsj.title}</h2>
+                    <p>{$dsj.content}</p>
+                    <a href="#" class="cd-read-more" target="_blank">阅读全文</a>
+                    <span class="cd-date">{$dsj.subtitle}</span>
+                </div>
+            </div>
+            {/volist}
+
+        </section>
+
+    </div>
+
+
+
+</div>
+
+{include file="public/footer"}
+</body>
+</html>
